@@ -1,2 +1,25 @@
 A set of scripts which quickly create a static site for family photos and
 videos, all on one page, sorted by date.
+
+Copyright 2013 by Dan White.
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+In addition, familiate contains software distributed under the following licenses:
+
+The Play (play.png) image icon is copyrighted by Creative Freedom Ltd (http://www.creativefreedom.co.uk/), released under the Creative Commons Attribution 3.0 Unported (CC BY 3.0) (http://creativecommons.org/licenses/by/3.0/) license.
+
+jQuery is copyrighted by the jQuery Foundation and other contributors. You may use jQuery under the terms of either the MIT License or the GNU General Public License (GPL) Version 2.
+
+Video.js: Copyright 2011 Zencoder, Inc. It can be used under the terms of the GNU Lesser General Public License (LGPL), either version 3, or (at your option) any later version.
+
+Colorbox: (c) 2011 Jack Moore - jacklmoore.com. It can be used under the MIT License.
+
+LazyLoad: Copyright (c) 2007-2012 Mika Tuupola. It is distributed under the MIT license.
