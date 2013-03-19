@@ -1,0 +1,23 @@
+#!/bin/sh
+
+usage(){
+    echo "Usage: $0 directory"
+    exit 1
+}
+
+if [ $# -eq 0 ]; then
+  usage
+fi
+
+DIR="$1"
+
+if [ ! -d $DIR ]; then
+  usage
+fi
+
+mkdir -p $DIR/images/orig
+mkdir $DIR/images/popup
+mkdir $DIR/images/thumbnail
+mkdir -p $DIR/videos/images/orig
+mkdir $DIR/videos/popup
+mkdir $DIR/videos/thumbnail
