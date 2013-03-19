@@ -1,0 +1,21 @@
+#!/bin/sh
+
+usage(){
+    echo "Usage: $0 image"
+    exit 1
+}
+
+if [ $# -eq 0 ]; then
+  usage
+fi
+
+IMAGE="$1"
+
+if [ ! -f "$IMAGE" ]; then
+  usage
+fi
+
+IFS='
+'
+
+date -d "`ls --full-time $IMAGE | awk '{print $6, $7, $8}'`" +%Y-%m-%d

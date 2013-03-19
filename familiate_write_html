@@ -1,12 +1,26 @@
 #!/bin/sh
 
+usage(){
+    echo "Usage: $0 web_directory"
+    exit 1
+}
+
+if [ $# -eq 0 ]; then
+  usage
+fi
+
+WEB_DIR="$1"
+
+if [ ! -d "$WEB_DIR" ]; then
+  usage
+fi
+
 dates=`mktemp`
 
-scripts/list-days.sh images/orig > $dates
-scripts/list-days.sh videos/orig >> $dates
+./list-days "$WEB_DIR" > $dates
 
-cat $dates | sort -r | uniq > $dates.2
-mv $dates.2 $dates
+#cat $dates | sort -r | uniq > $dates.2
+#mv $dates.2 $dates
 
 cat << EOF
 <!DOCTYPE html>
@@ -19,9 +33,9 @@ cat << EOF
             a:link, a:visited{text-decoration:none; color:#416CE5; border-bottom:1px solid #416CE5;}
             h2{font-size:13px; margin:15px 0 0 0;}
         </style>
-        <link rel="stylesheet" href="scripts/colorbox.css" />
-        <link rel="stylesheet" href="scripts/video-js.css" />
-        <link rel="stylesheet" href="scripts/familiate.css" />
+        <link rel="stylesheet" href="css/colorbox.css" />
+        <link rel="stylesheet" href="css/video-js.css" />
+        <link rel="stylesheet" href="css/familiate.css" />
         <script src="scripts/jquery.min.js"></script>
         <script src="scripts/jquery.colorbox.js"></script>
         <script src="scripts/video.js"></script>
@@ -56,24 +70,24 @@ do
   echo ""
   echo "      <h2>$foo</h2>"
   echo "      <div class=\"image_collection\">"
-  for bar in `ls --full-time images/orig/ | grep "$foo " | awk '{print $9}'`
+  for bar in `ls --full-time $WEB_DIR/pictures/orig/ | grep "$foo " | awk '{print $9}'`
   do
     #echo "      <p><a class=\"$foo\" href=\"images/popup/$bar\"><img src=\"images/thumbnails/$bar\"></a></p>"
-    image_width=`exiv2 images/thumbnails/$bar 2> /dev/null | grep 'Image size' | awk '{print $4}'`
-    image_height=`exiv2 images/thumbnails/$bar 2> /dev/null | grep 'Image size' | awk '{print $6}'`
-    echo "      <p><a class=\"$foo\" href=\"images/popup/$bar\"><img class=\"lazy\" src=\"images/grey.gif\" data-original=\"images/thumbnails/$bar\" width=\"$image_width\" height=\"$image_height\"></a></p>"
+    image_width=`exiv2 $WEB_DIR/pictures/thumbnails/$bar 2> /dev/null | grep 'Image size' | awk '{print $4}'`
+    image_height=`exiv2 $WEB_DIR/pictures/thumbnails/$bar 2> /dev/null | grep 'Image size' | awk '{print $6}'`
+    echo "      <p><a class=\"$foo\" href=\"pictures/popup/$bar\"><img class=\"lazy\" src=\"/images/grey.gif\" data-original=\"pictures/thumbnails/$bar\" width=\"$image_width\" height=\"$image_height\"></a></p>"
   done
   echo "      </div>"
   echo "      <div class=\"video_collection\">"
 
-  for bar in `ls --full-time videos/orig/ | grep "$foo " | awk '{print $9}'`
+  for bar in `ls --full-time $WEB_DIR/videos/orig/ | grep "$foo " | awk '{print $9}'`
   do
     file_part=`echo $bar | sed 's/\.[^\.]\+$//'`
-    image_width=`exiv2 videos/thumbnails/$bar 2> /dev/null | grep 'Image size' | awk '{print $4}'`
-    image_height=`exiv2 videos/thumbnails/$bar 2> /dev/null | grep 'Image size' | awk '{print $6}'`
+    image_width=`exiv2 $WEB_DIR/videos/thumbnails/$bar 2> /dev/null | grep 'Image size' | awk '{print $4}'`
+    image_height=`exiv2 $WEB_DIR/videos/thumbnails/$bar 2> /dev/null | grep 'Image size' | awk '{print $6}'`
     #echo "      <p><a class='iframe' href="videos/$file_part.html"><img src=\"videos/thumbnails/$file_part.jpg\"></a></p>"
-    echo "      <p><a class='iframe' href="videos/$file_part.html"><img class=\"lazy\" src=\"images/grey.gif\" data-original=\"videos/thumbnails/$file_part.jpg\" width=\"$image_width\" height=\"$image_height\"></a></p>"
-    cat > videos/$file_part.html << EOF
+    echo "      <p><a class='iframe' href="videos/$file_part.html"><img class=\"lazy\" src=\"/images/grey.gif\" data-original=\"videos/thumbnails/$file_part.jpg\" width=\"$image_width\" height=\"$image_height\"></a></p>"
+    cat > $WEB_DIR/videos/$file_part.html << EOF
 <html>
 <head>
   <link href="/scripts/video-js.css" rel="stylesheet">
@@ -94,7 +108,7 @@ EOF
 done
 
 cat << EOF
-    The <img src="images/play.png">Play</img> image icon is copyrighted by <a href="http://www.creativefreedom.co.uk/">Creative Freedom Ltd</a>, released under the <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported (CC BY 3.0)</a> license. jQuery is copyrighted by the jQuery Foundation and other contributors. You may use jQuery under the terms of either the MIT License or the GNU General Public License (GPL) Version 2. Video.js: Copyright 2011 Zencoder, Inc. It can be used under the terms of the GNU Lesser General Public License (LGPL), either version 3, or (at your option) any later version. Colorbox: (c) 2011 Jack Moore - jacklmoore.com. It can be used under the MIT License. LazyLoad: Copyright (c) 2007-2012 Mika Tuupola. It is distributed under the MIT license. All other rights, including image distribution, are reserved. Copying pictures or video from this site is prohibited, unless you're a close friend or family member.
+    The <img src="/images/play.png">Play</img> image icon is copyrighted by <a href="http://www.creativefreedom.co.uk/">Creative Freedom Ltd</a>, released under the <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported (CC BY 3.0)</a> license. jQuery is copyrighted by the jQuery Foundation and other contributors. You may use jQuery under the terms of either the MIT License or the GNU General Public License (GPL) Version 2. Video.js: Copyright 2011 Zencoder, Inc. It can be used under the terms of the GNU Lesser General Public License (LGPL), either version 3, or (at your option) any later version. Colorbox: (c) 2011 Jack Moore - jacklmoore.com. It can be used under the MIT License. LazyLoad: Copyright (c) 2007-2012 Mika Tuupola. It is distributed under the MIT license. All other rights, including image distribution, are reserved. Copying pictures or video from this site is prohibited, unless you're a close friend or family member.
 
     <script type="text/javascript" charset="utf-8">
         \$(function() {

@@ -1,0 +1,24 @@
+#!/bin/sh
+
+usage(){
+    echo "Usage: $0 web_directory image"
+    exit 1
+}
+
+if [ $# -eq 0 ]; then
+  usage
+fi
+
+if [ ! -d $WEB_DIR ]; then
+  usage
+fi
+
+if [ ! -f $IMAGE ]; then
+  usage
+fi
+
+WEB_DIR="$1"
+IMAGE="$2"
+FILENAME="`basename "$IMAGE"`"
+
+convert -define jpeg:size=500x180 $IMAGE -auto-orient -thumbnail 250x90 -unsharp 0x.5 $WEB_DIR/pictures/thumbnails/$FILENAME

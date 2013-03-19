@@ -17,9 +17,10 @@ fi
 
 mkdir -p $DIR/pictures/orig
 mkdir $DIR/pictures/popup
-mkdir $DIR/pictures/thumbnail
-mkdir -p $DIR/videos/images/orig
+mkdir $DIR/pictures/thumbnails
+mkdir -p $DIR/videos/orig
 mkdir $DIR/videos/popup
-mkdir $DIR/videos/thumbnail
+mkdir $DIR/videos/thumbnails
 cp -a css $DIR
+cp -a scripts $DIR
 cp -a images $DIR

@@ -1,0 +1,24 @@
+#!/bin/sh
+
+usage(){
+    echo "Usage: $0 web_directory"
+    exit 1
+}
+
+if [ $# -eq 0 ]; then
+  usage
+fi
+
+WEB_DIR="$1"
+
+if [ ! -d "$WEB_DIR" ]; then
+  usage
+fi
+
+IFS='
+'
+
+for foo in `ls "$WEB_DIR/pictures/orig/"* "$WEB_DIR/videos/orig/"* 2> /dev/null`
+do
+  ./print-day-of-file $foo
+done | sort -r | uniq

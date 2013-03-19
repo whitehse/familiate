@@ -1,0 +1,32 @@
+#!/bin/sh
+
+usage(){
+    echo "Usage: $0 web_directory image_directory"
+    exit 1
+}
+
+if [ $# -ne 2 ]; then
+  usage
+fi
+
+WEB_DIR="$1"
+IMAGE_DIR="$2"
+
+if [ ! -d $WEB_DIR ]; then
+  usage
+fi
+
+if [ ! -d $IMAGE_DIR ]; then
+  usage
+fi
+
+IFS='
+'
+
+for foo in `ls $IMAGE_DIR`
+do
+  cp "$IMAGE_DIR/$foo" "$WEB_DIR/pictures/orig/"
+  ./fix-timestamp "$WEB_DIR/pictures/orig/$foo"
+  ./create-thumbnail "$WEB_DIR" "$WEB_DIR/pictures/orig/$foo"
+  ./create-popup "$WEB_DIR" "$WEB_DIR/pictures/orig/$foo"
+done
