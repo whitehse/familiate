@@ -15,9 +15,11 @@ if [ ! -d $DIR ]; then
   usage
 fi
 
-mkdir -p $DIR/images/orig
-mkdir $DIR/images/popup
-mkdir $DIR/images/thumbnail
+mkdir -p $DIR/pictures/orig
+mkdir $DIR/pictures/popup
+mkdir $DIR/pictures/thumbnail
 mkdir -p $DIR/videos/images/orig
 mkdir $DIR/videos/popup
 mkdir $DIR/videos/thumbnail
+cp -a css $DIR
+cp -a images $DIR
