@@ -1,0 +1,30 @@
+#!/bin/sh
+
+usage(){
+    echo "Usage: $0 web_directory video"
+    exit 1
+}
+
+if [ $# -eq 0 ]; then
+  usage
+fi
+
+WEB_DIR="$1"
+VIDEO="$2"
+
+if [ ! -d $WEB_DIR ]; then
+  usage
+fi
+
+if [ ! -f $VIDEO ]; then
+  usage
+fi
+
+file_part=`basename $VIDEO | sed 's/\.[^\.]\+$//'`
+
+tmp_image=`mktemp`
+
+ffmpeg -itsoffset -0 -i $VIDEO -vcodec mjpeg -vframes 1 -an -f rawvideo -s 160x90 -y $tmp_image
+composite -dissolve 25% -gravity center $WEB_DIR/images/play.png $tmp_image $WEB_DIR/videos/thumbnails/$file_part.jpg
+
+rm $tmp_image

@@ -1,0 +1,32 @@
+#!/bin/sh
+
+usage(){
+    echo "Usage: $0 web_directory video_directory"
+    exit 1
+}
+
+if [ $# -ne 2 ]; then
+  usage
+fi
+
+WEB_DIR="$1"
+VIDEO_DIR="$2"
+
+if [ ! -d $WEB_DIR ]; then
+  usage
+fi
+
+if [ ! -d $VIDEO_DIR ]; then
+  usage
+fi
+
+IFS='
+'
+
+for foo in `ls $VIDEO_DIR`
+do
+  cp "$VIDEO_DIR/$foo" "$WEB_DIR/videos/orig/"
+  #./fix-timestamp "$WEB_DIR/pictures/orig/$foo"
+  ./create-video-thumbnail "$WEB_DIR" "$WEB_DIR/videos/orig/$foo"
+  ./video-downscale "$WEB_DIR" "$WEB_DIR/videos/orig/$foo"
+done
